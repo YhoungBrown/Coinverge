@@ -1,6 +1,5 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import ThemeSwitcher from '@/components/ThemeSwitcher';
 import { useThemeContext } from '@/context/ThemeContext';
 import styles from '@/stylesheet/welcomescreenStylesheet';
 import Feather from '@expo/vector-icons/Feather';
@@ -64,7 +63,7 @@ const Index = () => {
               transform: [{ translateY: slideAnim }],
             },
           ]}>
-          <ThemeSwitcher />
+         
 
           <Text
             style={[
