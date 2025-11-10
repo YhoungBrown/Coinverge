@@ -8,6 +8,13 @@ import { ThemedView } from "./themed-view";
 
 const screenWidth = Dimensions.get("window").width;
 
+const formatNumberShort = (num: number): string => {
+  if (num >= 1_000_000_000) return `${(num / 1_000_000_000).toFixed(1)}B`;
+  if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(1)}M`;
+  if (num >= 1_000) return `${(num / 1_000).toFixed(1)}k`;
+  return num.toFixed(2);
+};
+
 const CryptoChart = ({ title, data }: CryptoChartProps) => {
   const { theme } = useThemeContext();
 
@@ -28,7 +35,12 @@ const CryptoChart = ({ title, data }: CryptoChartProps) => {
     );
   }
 
+
   const prices = data.map((p: PricePoint) => p.y);
+  const maxPrice = Math.max(...prices);
+  const minPrice = Math.min(...prices);
+  const midPrice = (maxPrice + minPrice) / 2;
+
 
   return (
     <View style={{ paddingVertical: 10 }}>
@@ -45,6 +57,33 @@ const CryptoChart = ({ title, data }: CryptoChartProps) => {
           {title}
         </ThemedText>
       )}
+
+       <ThemedView
+          style={{
+            justifyContent: "space-between",
+            height: 150,
+            marginRight: 6,
+            position: 'absolute',
+            left: -7,
+            top: 30,
+            zIndex: 10,
+            backgroundColor: 'transparent'
+          }}
+        >
+          {[maxPrice, midPrice, minPrice].map((price, index) => (
+            <ThemedText
+              key={index}
+              style={{
+                color: theme === "dark" ? "#fff" : "#000",
+                fontSize: 7,
+              }}
+            >
+              ₦{formatNumberShort(price)}
+            </ThemedText>
+          ))}
+        </ThemedView>
+
+
 
       <LineChart
         data={{

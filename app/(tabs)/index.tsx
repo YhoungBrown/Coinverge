@@ -83,7 +83,7 @@ useEffect(() => {
       }}>
 
         <ThemedView style={{
-          borderColor: theme === 'dark' ? "#fea500" : "#ffb74d",
+          borderColor: theme === 'dark' ? "#fea500" : "#d3840eff",
           ...styles.walletAmountSection
           }}
         >
