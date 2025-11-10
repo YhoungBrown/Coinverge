@@ -61,7 +61,7 @@ const SingleCoin =  ({ product, onPress }: SingleCoinProps) => {
                     color: product.price_change_percentage_7d_in_currency &&  product.price_change_percentage_7d_in_currency > 0 ? "green" : "red",
                     ...styles.percentageChangedText
                 }}>
-                    {product.price_change_percentage_7d_in_currency}
+                    {product.price_change_percentage_7d_in_currency?.toFixed(2)}%
                 </Text>
             </ThemedView>
         </ThemedView>

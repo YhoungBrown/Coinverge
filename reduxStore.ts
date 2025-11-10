@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import coinReducer from './reduxSlice/CoinsSlice';
+import favouriteReducer from './reduxSlice/FavouriteSlice';
 import portfolioReducer from './reduxSlice/PortfolioSlice';
 
 export const store = configureStore({
   reducer: {
      coins: coinReducer,
-     portfolio: portfolioReducer
+     portfolio: portfolioReducer,
+     favourite: favouriteReducer
   },
 })
 

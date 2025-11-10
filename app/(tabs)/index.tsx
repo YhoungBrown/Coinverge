@@ -131,7 +131,7 @@ useEffect(() => {
                     color: coins[0]?.price_change_percentage_7d_in_currency &&  coins[0]?.price_change_percentage_7d_in_currency > 0 ? "green" : "red",
                     ...styles.percentageChangedText
                 }}>
-                    {coins[0]?.price_change_percentage_7d_in_currency}
+                    {coins[0]?.price_change_percentage_7d_in_currency?.toFixed(2)}%
                 </ThemedText>
             <ThemedText style={{
               color: theme === 'dark' ? "#7A7A7A" : "#837d7dff",

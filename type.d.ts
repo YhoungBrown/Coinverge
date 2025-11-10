@@ -45,6 +45,11 @@ export interface PortfolioState {
   loading: boolean;
   error: string | null;
 }
+export interface favouriteState {
+  assets: CoinData[];
+  loading: boolean;
+  error: string | null;
+}
 
 
 export type RawChartData = { prices: [number, number][] };
