@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     },
     lineBreaker: {
         width: '100%',
-        height: 0.3
+        height: 1
     },
     settingsCard: {
         flexDirection: "row",

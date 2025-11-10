@@ -113,7 +113,7 @@ import styles from '../stylesheet/LoginStylesheet';
           />
         ) : (
           <TouchableOpacity
-            style={styles.InventoryButtonTouchableOpacity} 
+            style={styles.continueButtonTouchableOpacity} 
             onPress={() => login(username)}
           >
             <ThemedView style={styles.continueButton}>

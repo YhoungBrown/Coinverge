@@ -41,14 +41,14 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         fontSize: 16,
     },
-    InventoryButtonTouchableOpacity: {
+    continueButtonTouchableOpacity: {
         alignSelf: 'center',
     },
     continueButton: {
         backgroundColor: '#fea500',
-        padding: 16,
+        padding: 10,
         borderRadius: 12,
-        width: 200,
+        width: 170,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 40,

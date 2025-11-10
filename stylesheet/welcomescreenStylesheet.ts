@@ -4,14 +4,14 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     width: '100%',
-    justifyContent: 'flex-end', // content near bottom
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   gradientOverlay: {
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: '100%', // covers bottom portion of image
+    height: '100%', 
   },
   contentContainer: {
     width: '100%',

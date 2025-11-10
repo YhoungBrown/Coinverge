@@ -42,12 +42,12 @@ const settings = () => {
             }}
         >
             <ThemedView style={{
-                backgroundColor: theme === 'dark' ? '#fff' : '#000',
+                backgroundColor: theme === 'dark' ? '#fea500' : '#ffb74d',
                 ...styles.profilePixContainer
                 }}
             >
                 <ThemedText style={{
-                      color: theme === 'dark' ? '#000' : '#fff' ,
+                      color: theme === 'dark' ? '#fff' : '#000',
                     ...styles.profilePix
                     }}>
                     {username ? username.slice(0, 2).toUpperCase() : ''}
@@ -65,7 +65,7 @@ const settings = () => {
 
         <ThemedView 
             style={{
-                backgroundColor: theme === 'dark' ? '#dfdedeff' : '#1d1c1cff',
+                backgroundColor: theme === 'dark' ? '#fea500' : '#ffb74d',
                 ...styles.lineBreaker
             }}
         />
