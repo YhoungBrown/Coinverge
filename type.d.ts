@@ -40,6 +40,11 @@ export interface CoinsState {
   loading: boolean;
   error: string | null;
 }
+export interface PortfolioState {
+  assets: CoinData[];
+  loading: boolean;
+  error: string | null;
+}
 
 
 export type RawChartData = { prices: [number, number][] };

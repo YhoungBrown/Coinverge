@@ -1,102 +1,210 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet, View } from 'react-native';
-
-import { ExternalLink } from '@/components/external-link';
-import { Collapsible } from '@/components/ui/collapsible';
-
+import SingleCoin from '@/components/SingleCoin';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Fonts } from '@/constants/theme';
+import { useThemeContext } from '@/context/ThemeContext';
+import { RootState } from '@/reduxStore';
+import { get } from '@/SecureStore';
+import styles from '@/stylesheet/portfolioStylesheet';
+import Entypo from '@expo/vector-icons/Entypo';
+import Feather from '@expo/vector-icons/Feather';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 
-export default function TabTwoScreen() {
+
+
+
+export default function portfolio() {
+  const inset = useSafeAreaInsets();
+  const {theme} = useThemeContext();
+  const router = useRouter();
+  
+  
+
+   const [username, setUsername] = useState<string | null>(null);
+  
+   const [loading, setLoading] = useState<boolean>(false);
+
+  const assets = useSelector((state: RootState) => state.portfolio.assets);
+
+  
+
+  const ITEM_HEIGHT = 70;
+  const { height } = Dimensions.get('window')
+  const initialBatch = Math.ceil(height / ITEM_HEIGHT);
+
+ 
+
+ useFocusEffect(
+    useCallback(() => {
+      setLoading(true)
+      const fetchUsername = async () => {
+        try {
+          const storedUsername = await get('Username'); 
+          setUsername(storedUsername);
+          setLoading(false);
+        } catch (error) {
+           setLoading(false);
+          console.error("Error fetching username or assets:", error);
+        }
+      };
+
+      fetchUsername();
+    }, [])
+  );
+
+
+
+
   return (
-    <View>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
+    <ThemedView style={{
+      paddingTop: inset.top,
+      paddingBottom: inset.bottom - 45 ,
+      backgroundColor: theme === 'dark' ? '#0d0d0d' : '#ffffff', 
+      ...styles.container,
+      }}>
+
+        <ThemedView style={{
+          borderColor: theme === 'dark' ? "#fea500" : "#d3840eff",
+          ...styles.walletAmountSection
+          }}
+        >
+          <ThemedView style={{
+            width: `${username?.length! * 2 + 35}%`,
+            backgroundColor: theme === 'dark' ? "#fea500" : "#d3840eff",
+            ...styles.yourAssetsBackground
           }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
+            <ThemedText style={{
+              color: theme === 'dark' ? "#fff" : "#000",
+              ...styles.yourWallet}}>
+              {`${username}'s assets`}
             </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </View>
+          </ThemedView>
+
+            <ThemedView style={styles.AmountContainer}>
+              <ThemedText style={{
+                 color: theme === 'dark' ? "#7A7A7A" : "#837d7dff",
+                ...styles.currencySymbol
+                }}
+              >
+                 ₦
+              </ThemedText>
+              <ThemedText style={{
+                 color: theme === 'dark' ? "#FFF" : "#000",
+                ...styles.AmountFigure
+                }}
+              >
+                 584,984,257.6
+              </ThemedText>
+            </ThemedView>
+
+            <ThemedView style={{
+              ...styles.AmountContainer
+              }}
+            >
+
+              <ThemedView style={{
+                backgroundColor: theme === 'dark' ? '#0d0d0d' : '#ffffff', 
+                marginLeft: 15
+              }}>
+                {assets[0]?.price_change_percentage_7d_in_currency &&  assets[0]?.price_change_percentage_7d_in_currency > 0 ? 
+                (
+                  <Feather name="arrow-up-right" size={15} color="green" />
+                ) : (
+                  <Feather name="arrow-down-right" size={15} color="red" />
+                )}
+
+              </ThemedView>
+                <ThemedText style={{
+                    color: assets[0]?.price_change_percentage_7d_in_currency &&  assets[0]?.price_change_percentage_7d_in_currency > 0 ? "green" : "red",
+                    ...styles.percentageChangedText
+                }}>
+                    {assets[0]?.price_change_percentage_7d_in_currency}
+                </ThemedText>
+            <ThemedText style={{
+              color: theme === 'dark' ? "#7A7A7A" : "#837d7dff",
+              ...styles.changeTime
+              }}
+            >
+              7d change
+            </ThemedText>
+
+          </ThemedView>
+
+        </ThemedView>
+
+      
+          
+          <ThemedView style={{ 
+            backgroundColor: theme === 'dark' ? '#0d0d0d' : '#ffffff',
+            ...styles.favouriteCategory
+            }}
+          >
+            <ThemedText style={{
+              color: theme === 'dark' ? "#fea500" : "#ffb74d",
+              ...styles.favouriteCategoryText
+              }}
+            >
+              {assets.length > 1 &&
+                ("Your Available Assets") 
+              }
+            </ThemedText>
+          </ThemedView>
+
+
+          {assets.length < 1 && (
+            <ThemedView style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: '40%',
+              backgroundColor: theme === 'dark' ? '#0d0d0d' : '#ffffff',
+            }}>
+              <Entypo name="wallet" size={100} color={theme === 'dark' ? "#fea500" : "#ffb74d" }/>
+              <ThemedText style={{
+                color: theme === 'dark' ? "#fea500" : "#ffb74d"
+              }}>
+                   You currently have no assets
+              </ThemedText>
+            </ThemedView>
+          )}
+
+
+        
+              <FlatList
+                data={assets}
+                renderItem={({ item }) => 
+                <SingleCoin 
+                  key={item.id}
+                  product={item} 
+                  onPress={() => router.push({
+                     pathname: "/[id]", 
+                     params: { id: item.id, coin: JSON.stringify(item) }
+                  })}
+                />}
+                keyExtractor={(item, index) => (item.id ? item.id.toString() : index.toString())}
+                initialNumToRender={initialBatch}
+                maxToRenderPerBatch={initialBatch * 2}
+                removeClippedSubviews={true}
+                getItemLayout={(_, index) => ({
+                  length: ITEM_HEIGHT,
+                  offset: ITEM_HEIGHT * index,
+                  index,
+                })}
+                showsVerticalScrollIndicator={false}
+              />
+
+
+
+        {loading && (
+          <ThemedView style={[
+            styles.activityIndicator, 
+            { backgroundColor: theme === 'dark' ? '#0d0d0d' : '#ffffff', }]}
+          >
+            <ActivityIndicator size="large" color={theme === 'dark' ? "#fea500" : "#ffb74d"} />
+          </ThemedView>
+        )}
+      </ThemedView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-});

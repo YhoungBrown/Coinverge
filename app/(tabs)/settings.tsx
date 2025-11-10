@@ -33,7 +33,7 @@ const settings = () => {
     <ThemedView style={{
         paddingTop: inset.top,
         paddingBottom: inset.bottom,
-        backgroundColor: theme === 'dark' ? '#0d0d0d' : '#ffffff', 
+        backgroundColor: theme === 'dark' ? '#000' : '#ffffff', 
         ...styles.conatiner}}
     >
         <ThemedView style={{

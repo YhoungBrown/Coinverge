@@ -30,7 +30,7 @@ export default function HomeScreen() {
 
   const coins = useSelector((state: RootState) => state.coins.coins);
   
-  console.log(chartData)
+
   const ITEM_HEIGHT = 70;
   const { height } = Dimensions.get('window')
   const initialBatch = Math.ceil(height / ITEM_HEIGHT);
@@ -64,7 +64,7 @@ useEffect(() => {
 
     setLoading(true);
     const chart = await fetchChartData(selectedCoin.id);
-    console.log("Chart data loaded:", chart);
+    
     setChartData(chart);
     setLoading(false);
   };
@@ -186,6 +186,7 @@ useEffect(() => {
                   offset: ITEM_HEIGHT * index,
                   index,
                 })}
+                showsVerticalScrollIndicator={false}
               />
 
         {loading && (

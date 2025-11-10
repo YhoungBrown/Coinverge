@@ -32,6 +32,7 @@ const { theme } = useThemeContext();
       <Stack initialRouteName='index'>
         <Stack.Screen name="index" options={{ headerShown: false }} />
          <Stack.Screen name="Login" options={{ headerShown: false }} />
+         <Stack.Screen name="singleCoinDetail" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
       </Stack>

@@ -25,6 +25,12 @@ import styles from '../stylesheet/LoginStylesheet';
       return;
     }
 
+      if (username.length > 12) {
+      Alert.alert('Invalid Name', 'Name is too long, Please enter a shorter name.');
+      return;
+    }
+
+
     try {
       setLoading(true);
       username = username.toLowerCase().trim();
@@ -92,7 +98,7 @@ import styles from '../stylesheet/LoginStylesheet';
         </ThemedText>
 
         <TextInput
-          placeholder='Enter your name...'
+          placeholder='Enter your first name...'
           placeholderTextColor={theme === 'dark' ? '#666' : '#464444ff'}
           style={{
             ...styles.textInput,
