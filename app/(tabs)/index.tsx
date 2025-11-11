@@ -29,6 +29,10 @@ export default function HomeScreen() {
    const [chartData, setChartData] = useState<PricePoint[] | null>(null);
 
   const coins = useSelector((state: RootState) => state.coins.coins);
+
+  const favouriteAssets = useSelector((state: RootState) => state.favourite.assets);
+
+  const data = favouriteAssets.length > 0 ? favouriteAssets : coins
   
 
   const ITEM_HEIGHT = 70;
@@ -163,14 +167,14 @@ useEffect(() => {
               ...styles.favouriteCategoryText
               }}
             >
-              Favourites Coins
+              Favourite Coins
             </ThemedText>
           </ThemedView>
 
 
         
               <FlatList
-                data={coins}
+                data={data}
                 renderItem={({ item }) => 
                 <SingleCoin 
                   key={item.id}
