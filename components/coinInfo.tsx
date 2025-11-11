@@ -10,7 +10,7 @@ import { ThemedView } from './themed-view';
   const formatNumber = (num: number | null) =>
     num ? num.toLocaleString() : "N/A";
 
-  const formatCurrency = (num: number | null, prefix = "₦ ") =>
+  const formatCurrency = (num: number | null, prefix = "$ ") =>
     num ? `${prefix}${num.toLocaleString()}` : "N/A";
   
 

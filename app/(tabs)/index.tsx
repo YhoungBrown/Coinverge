@@ -103,7 +103,7 @@ useEffect(() => {
                 ...styles.currencySymbol
                 }}
               >
-                 ₦
+                 $
               </ThemedText>
               <ThemedText style={{
                  color: theme === 'dark' ? "#FFF" : "#000",
@@ -111,6 +111,15 @@ useEffect(() => {
                 }}
               >
                  584,984,257.6
+              </ThemedText>
+              <ThemedText style={{
+                 color: theme === 'dark' ? "#7A7A7A" : "#837d7dff",
+                 marginLeft: 3,
+                 marginTop: 6,
+                ...styles.currencySymbol
+                }}
+              >
+                 USD
               </ThemedText>
             </ThemedView>
 

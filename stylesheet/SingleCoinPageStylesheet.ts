@@ -52,6 +52,43 @@ const styles = StyleSheet.create({
         marginTop: -2,
         fontWeight: "800"
     },
+    modalCancelButton: {
+        borderWidth: 1, 
+        paddingVertical: 15,
+        borderRadius: 10, 
+        marginTop: 15, 
+        alignItems: 'center',
+    },
+    actionBtnText : {
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    modalTextInput: {
+        borderWidth: 1,
+        borderRadius: 8,
+        padding: 10,
+        marginBottom: 20,
+    },
+    modalActionOpacity: {
+        paddingVertical: 15,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    modalInnerContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    modalContentContainer: {
+        padding: 20,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
 })
 
 export default styles;
