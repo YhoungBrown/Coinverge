@@ -75,3 +75,7 @@ export interface SingleCoinProps {
   product: CoinData;
   onPress: () => void;
 }
+
+export interface CoinInfoProps {
+  coinData: CoinData | null;
+}
