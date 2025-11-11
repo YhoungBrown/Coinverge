@@ -4,9 +4,10 @@ import { SingleCoinProps } from '@/type'
 import Feather from '@expo/vector-icons/Feather'
 import React from 'react'
 import { Image, Text, TouchableOpacity } from 'react-native'
+import { ThemedText } from './themed-text'
 import { ThemedView } from './themed-view'
 
-const SingleCoin =  ({ product, onPress }: SingleCoinProps) => {
+const SingleCoin =  ({ product, onPress , showQuantity, quantity}: SingleCoinProps) => {
     const {theme} = useThemeContext();
   return (
     <TouchableOpacity 
@@ -34,16 +35,46 @@ const SingleCoin =  ({ product, onPress }: SingleCoinProps) => {
             </Text>
         </ThemedView>
 
+
+         {showQuantity && quantity !== undefined && (
+          <ThemedText style={{
+            ...styles.showQuantity,
+            color: theme === 'dark' ? "#FFF" : "#000",
+            
+          }}>
+            Qty: {quantity}
+          </ThemedText>
+        )}
+
+
+
          <ThemedView style={{ 
             backgroundColor: theme === 'dark' ? '#0d0d0d' : '#ffffff'
             }}
         >
-            <Text style={{
+
+        {showQuantity && quantity !== undefined ? (
+          <ThemedText style={{
+            ...styles.currentPrice,
+            color: theme === 'dark' ? "#FFF" : "#000", 
+          }}>
+                ${(product.current_price * quantity!).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                })}
+          </ThemedText>
+        ): (
+            <ThemedText style={{
                 ...styles.currentPrice,
                 color: theme === 'dark' ? "#FFF" : "#000"
             }}>
-                {product.current_price}
-            </Text>
+                ${product.current_price.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                })}
+            </ThemedText>
+        )}
+
 
             <ThemedView 
                 style={{

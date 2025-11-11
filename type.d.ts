@@ -80,6 +80,8 @@ export interface CryptoChartProps {
 export interface SingleCoinProps {
   product: CoinData;
   onPress: () => void;
+  quantity?: number;         
+  showQuantity?: boolean; 
 }
 
 export interface CoinInfoProps {

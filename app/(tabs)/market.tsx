@@ -86,7 +86,7 @@ const MarketScreen = () => {
               color: theme === 'dark' ? '#FFF' : '#000',
             }}
           >
-            {item.current_price}
+            ${item.current_price}
           </ThemedText>
 
           <ThemedView

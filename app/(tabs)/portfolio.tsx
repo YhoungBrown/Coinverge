@@ -196,6 +196,8 @@ export default function portfolio() {
                 <SingleCoin 
                   key={item.id}
                   product={item} 
+                  quantity={item.quantity}
+                  showQuantity={true}
                   onPress={() => router.push({
                      pathname: "/[id]", 
                      params: { id: item.id, coin: JSON.stringify(item) }

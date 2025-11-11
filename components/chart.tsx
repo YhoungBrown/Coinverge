@@ -78,7 +78,7 @@ const CryptoChart = ({ title, data }: CryptoChartProps) => {
                 fontSize: 7,
               }}
             >
-              ₦{formatNumberShort(price)}
+              ${formatNumberShort(price)}
             </ThemedText>
           ))}
         </ThemedView>

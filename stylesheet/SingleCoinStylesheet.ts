@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
         marginLeft: 12,
         fontWeight: "500"
     },
+    showQuantity: {
+        fontWeight: '500',
+        fontSize: 13,
+        marginTop: 7
+    },
     percentageChangeContainer: {
         flexDirection: 'row',
         alignItems: "center"
