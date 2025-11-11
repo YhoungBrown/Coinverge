@@ -29,6 +29,11 @@ export default function portfolio() {
 
   const assets = useSelector((state: RootState) => state.portfolio.assets);
 
+
+
+
+  const totalPortfolioValue = assets
+  .reduce((total, coin) => total + coin.current_price * coin.quantity, 0);
   
 
   const ITEM_HEIGHT = 70;
@@ -96,7 +101,10 @@ export default function portfolio() {
                 ...styles.AmountFigure
                 }}
               >
-                 584,984,257.6
+                  {totalPortfolioValue.toLocaleString(undefined, { 
+                  minimumFractionDigits: 2, 
+                  maximumFractionDigits: 2 
+                })}
               </ThemedText>
               <ThemedText style={{
                  color: theme === 'dark' ? "#7A7A7A" : "#837d7dff",
@@ -156,7 +164,7 @@ export default function portfolio() {
               ...styles.favouriteCategoryText
               }}
             >
-              {assets.length > 1 &&
+              {assets.length > 0 &&
                 ("Your Available Assets") 
               }
             </ThemedText>
@@ -172,6 +180,7 @@ export default function portfolio() {
             }}>
               <Entypo name="wallet" size={100} color={theme === 'dark' ? "#fea500" : "#ffb74d" }/>
               <ThemedText style={{
+                fontWeight: '500',
                 color: theme === 'dark' ? "#fea500" : "#ffb74d"
               }}>
                    You currently have no assets

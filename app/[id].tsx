@@ -3,6 +3,7 @@ import CoinInfo from '@/components/coinInfo';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { useThemeContext } from '@/context/ThemeContext';
+import { addAssets, sellAssets } from '@/reduxSlice/PortfolioSlice';
 import styles from '@/stylesheet/SingleCoinPageStylesheet';
 import { CoinData, PricePoint } from '@/type';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -10,6 +11,7 @@ import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Modal, TextInput, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
 import { fetchChartData } from "../components/chartHelper";
 
 export default function CoinPage() {
@@ -17,6 +19,7 @@ export default function CoinPage() {
   const inset = useSafeAreaInsets();
   const router = useRouter();
   const { theme } = useThemeContext();
+  const dispatch = useDispatch();
   const { id, coin } = useLocalSearchParams<{ id: string; coin?: string }>();
 
   const [chartData, setChartData] = useState<PricePoint[] | null>(null);
@@ -47,27 +50,49 @@ export default function CoinPage() {
     setModalVisible(true);
   };
 
-  const handleConfirm = () => {
-    if (quantity === "")
-      return alert("quantity can't be empty")
-    
-    try {
-      setLoading(true)
-      
-      console.log(`${actionType?.toUpperCase()} ${quantity} ${coinData?.symbol}`);
-      setModalVisible(false);
-      setQuantity("");
-    } catch (error) {
-      
-    } finally {
-      setLoading(false)
+
+
+ const handleConfirm = () => {
+  if (quantity === "")
+    return alert("Quantity can't be empty");
+
+  try {
+    setLoading(true);
+
+    const parsedQuantity = parseFloat(quantity);
+    if (isNaN(parsedQuantity) || parsedQuantity <= 0)
+      return alert("Enter a valid quantity");
+
+    const asset = {
+      ...coinData!,
+      quantity: parsedQuantity,
+    };
+
+    if (actionType === 'buy') {
+      dispatch(addAssets(asset));
+      alert('Purchase Successful');
+    } else if (actionType === 'sell') {
+      dispatch(sellAssets(asset));
+      alert('Sales Successful');
     }
-  };
+
+    setModalVisible(false);
+    setQuantity("");
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   const handleCancel = () => {
     setModalVisible(false);
     setQuantity("");
   };
+
+
 
   return (
     <ThemedView
@@ -106,7 +131,7 @@ export default function CoinPage() {
       <CoinInfo coinData={coinData} />
 
      
-     
+
       {!modalVisible && (
       <ThemedView
         style={{

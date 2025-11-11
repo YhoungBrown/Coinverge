@@ -1,4 +1,4 @@
-import { CoinData, PortfolioState } from '@/type';
+import { PortfolioAsset, PortfolioState } from '@/type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: PortfolioState = {
@@ -13,15 +13,32 @@ export const portfolioSlice = createSlice({
   reducers: {
 
 
-    addAssets: (state, action: PayloadAction<CoinData>) => {
+    addAssets: (state, action: PayloadAction<PortfolioAsset>) => {
+        const existing = state.assets.find(asset => asset.id === action.payload.id);
+
+      if (existing) { 
+        existing.quantity += action.payload.quantity;
+      } else {
         state.assets.push(action.payload);
+      }
     },
 
 
-    sellAssets: (state, action: PayloadAction<CoinData>) => {
-      state.assets = state.assets.filter(
-        (asset) => asset.id !== action.payload.id
-      );
+    sellAssets: (state, action: PayloadAction<PortfolioAsset>) => {
+       
+      const existing = state.assets.find(asset => asset.id === action.payload.id);
+
+      if(!existing){
+        return
+      }
+
+      if (existing) {
+        existing.quantity -= action.payload.quantity;
+      }
+      
+      if (existing!.quantity <= 0) {
+          state.assets = state.assets.filter(asset => asset.id !== action.payload.id);
+        }
     },
   },
 });

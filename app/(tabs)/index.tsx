@@ -32,6 +32,12 @@ export default function HomeScreen() {
 
   const favouriteAssets = useSelector((state: RootState) => state.favourite.assets);
 
+  const portfolioAssets = useSelector((state: RootState) => state.portfolio.assets);
+
+  const totalPortfolioValue = portfolioAssets
+  .reduce((total, asset) => total + asset.current_price * asset.quantity, 0);
+
+
   const data = favouriteAssets.length > 0 ? favouriteAssets : coins
   
 
@@ -110,7 +116,10 @@ useEffect(() => {
                 ...styles.AmountFigure
                 }}
               >
-                 584,984,257.6
+                 {totalPortfolioValue.toLocaleString(undefined, { 
+                  minimumFractionDigits: 2, 
+                  maximumFractionDigits: 2 
+                })}
               </ThemedText>
               <ThemedText style={{
                  color: theme === 'dark' ? "#7A7A7A" : "#837d7dff",

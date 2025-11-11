@@ -40,11 +40,17 @@ export interface CoinsState {
   loading: boolean;
   error: string | null;
 }
+
+export interface PortfolioAsset extends CoinData {
+  quantity: number;
+}
+
 export interface PortfolioState {
-  assets: CoinData[];
+  assets: PortfolioAsset[];
   loading: boolean;
   error: string | null;
 }
+
 export interface favouriteState {
   assets: CoinData[];
   loading: boolean;
@@ -79,3 +85,5 @@ export interface SingleCoinProps {
 export interface CoinInfoProps {
   coinData: CoinData | null;
 }
+
+
