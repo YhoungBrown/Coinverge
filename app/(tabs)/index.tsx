@@ -1,3 +1,4 @@
+import { saveApiKey } from '@/apiKey';
 import CryptoChart from '@/components/chart';
 import SingleCoin from '@/components/SingleCoin';
 import { ThemedText } from '@/components/themed-text';
@@ -48,6 +49,7 @@ export default function HomeScreen() {
  
 
 useEffect(() => {
+  saveApiKey()
   const loadCoins = async () => {
     try {
       setLoading(true);
@@ -56,7 +58,7 @@ useEffect(() => {
       setSelectedCoin(allProd[0]);
     } catch (err: any) {
       console.log(err.message);
-      alert("Failed to fetch coins");
+      alert("Failed to fetch coins, Please Reload App");
     } finally {
       setLoading(false);
     }
@@ -88,7 +90,7 @@ useEffect(() => {
     <ThemedView style={{
       paddingTop: inset.top,
       paddingBottom: inset.bottom - 45 ,
-      backgroundColor: theme === 'dark' ? '#0d0d0d' : '#ffffff', 
+      backgroundColor: theme === 'dark' ? '#000' : '#ffffff', 
       ...styles.container,
       }}>
 

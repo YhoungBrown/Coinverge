@@ -128,6 +128,56 @@ export default function CoinPage() {
         />
       )}
 
+      <ThemedView style={{
+        ...styles.percentageChangeOuterContainer,
+        backgroundColor: theme === 'dark' ? '#000' : '#ffffff',
+        }}
+      >
+
+        <ThemedView style={{
+          backgroundColor: '#f2f2f2', 
+          ...styles.percentageChangeContainer
+          }}>
+            <ThemedText
+            style={{
+              ...styles.percentageChangeText,
+              color: coinData?.price_change_percentage_1h_in_currency &&  coinData?.price_change_percentage_1h_in_currency! > 0 ? "green" : "red",
+            }}
+            >
+              {coinData?.price_change_percentage_1h_in_currency?.toFixed(2)}% change / 1h
+            </ThemedText>
+        </ThemedView>
+
+        <ThemedView style={{
+            backgroundColor: '#f2f2f2', 
+          ...styles.percentageChangeContainer
+          }}>
+            <ThemedText
+            style={{
+              ...styles.percentageChangeText,
+              color: coinData?.price_change_percentage_24h_in_currency &&  coinData?.price_change_percentage_24h_in_currency! > 0 ? "green" : "red",
+            }}
+            >
+              {coinData?.price_change_percentage_24h_in_currency?.toFixed(2)}% change / 1d
+            </ThemedText>
+        </ThemedView>
+
+        <ThemedView style={{
+            backgroundColor: '#f2f2f2', 
+          ...styles.percentageChangeContainer
+          }}>
+            <ThemedText
+            style={{
+              ...styles.percentageChangeText,
+              color: coinData?.price_change_percentage_7d_in_currency &&  coinData?.price_change_percentage_7d_in_currency! > 0 ? "green" : "red",
+            }}
+            >
+              {coinData?.price_change_percentage_7d_in_currency?.toFixed(2)}% change / 7d
+            </ThemedText>
+        </ThemedView>
+
+      </ThemedView>
+
       <CoinInfo coinData={coinData} />
 
      

@@ -17,7 +17,7 @@ import { ThemedView } from './themed-view';
 const CoinInfo = ({ coinData }: CoinInfoProps) => {
     const {theme} = useThemeContext();
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
 
         <ThemedView 
             style={{ 
