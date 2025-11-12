@@ -1,6 +1,9 @@
 import { get } from '@/SecureStore';
 import { PricePoint } from '@/type';
 
+const API_KEY = process.env.EXPO_PUBLIC_API_KEY ?? require('@/apiKey').default;
+
+
 export const fetchAllCoins = async () => {
   try {
     
@@ -14,7 +17,7 @@ export const fetchAllCoins = async () => {
         method: 'GET',
         headers: {
           accept: 'application/json',
-          'x-cg-demo-api-key': apiKey,
+          'x-cg-demo-api-key': API_KEY,
         },
       }
     );
@@ -60,7 +63,7 @@ export const fetchCoinChartData = async (
       method: 'GET',
       headers: {
         accept: 'application/json',
-        'x-cg-demo-api-key': apiKey,
+        'x-cg-demo-api-key': API_KEY,
       },
     });
 

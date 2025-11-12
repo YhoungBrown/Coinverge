@@ -1,4 +1,3 @@
-import { saveApiKey } from '@/apiKey';
 import CryptoChart from '@/components/chart';
 import SingleCoin from '@/components/SingleCoin';
 import { ThemedText } from '@/components/themed-text';
@@ -49,7 +48,6 @@ export default function HomeScreen() {
  
 
 useEffect(() => {
-  saveApiKey()
   const loadCoins = async () => {
     try {
       setLoading(true);
